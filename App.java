@@ -15,12 +15,18 @@ public class App {
     List<CD> allCDs = new ArrayList<CD>();
     allCDs.add(cd1);
     allCDs.add(cd2);
+    allCDs.add(cd3);
+    allCDs.add(cd4);
+    allCDs.add(cd5);
+
 
     //ask if want to search by year or by price range
 
     System.out.println("Welcome to CD Barn.");
 
-    System.out.println("Enter 'year' if you want to search by release year, or 'price' if you want to search by price range");
+    System.out.println("Enter 'year' to search by release year.");
+    System.out.println("Enter 'price' to search by price range.");
+    System.out.println("Enter 'artist' to search by artist name.");
 
     String searchChoice = myConsole.readLine();
 
@@ -48,6 +54,28 @@ public class App {
         System.out.println ("No results from search");
       }
 
+    } else if (searchChoice.equals("artist")) {
+      System.out.println("Search for CD according to artist:");
+
+      String cdChoiceByArtist = myConsole.readLine();
+
+      for (CD singleCD : allCDs) {
+
+        if ( cdChoiceByArtist.equals(singleCD.mArtistName) ) {
+          System.out.println("--------------------");
+          System.out.println( singleCD.mArtistName );
+          System.out.println( singleCD.mAlbumName );
+          System.out.println( singleCD.mReleaseYear );
+          System.out.println( singleCD.mPrice );
+
+          searchResults = true;
+        }
+      }
+      if (!searchResults){
+        System.out.println ("No results from search");
+      }
+
+
     } else if (searchChoice.equals("price")) {
       System.out.println("Search for CD according to price range.");
       System.out.println("What is your low end (0 or greater):");
@@ -63,7 +91,7 @@ public class App {
       } else {
 
         for (CD singleCD : allCDs) {
-          if (lowChoiceByPrice <= singleCD.mPrice && highChoiceByPrice >= singleCD.mPrice) {
+          if ((lowChoiceByPrice <= singleCD.mPrice) && (highChoiceByPrice >= singleCD.mPrice)) {
             System.out.println("--------------------");
             System.out.println( singleCD.mArtistName );
             System.out.println( singleCD.mAlbumName );
