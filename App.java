@@ -18,40 +18,75 @@ public class App {
 
     //ask if want to search by year or by price range
 
-    System.out.println("Welcome to CD Barn. Enter 'year' if you want to search by release year, or 'price' if you want to search by price range");
+    System.out.println("Welcome to CD Barn.");
+
+    System.out.println("Enter 'year' if you want to search by release year, or 'price' if you want to search by price range");
 
     String searchChoice = myConsole.readLine();
 
-    if (searchChoice.equals("year")) {
-      System.out.println("You want to search by year!");
-    } else if (searchChoice.equals("price"))
-      System.out.println("You want to search by price!");
-    }
-
-
-    System.out.println("Search for CD according to year:");
-
-    Integer CDChoiceByYear = Integer.parseInt(myConsole.readLine());
-
     boolean searchResults = false;
 
-    for (CD singleCD : allCDs) {
+    if (searchChoice.equals("year")) {
+      System.out.println("Search for CD according to year:");
 
-      if ( CDChoiceByYear == singleCD.mReleaseYear ) {
-        System.out.println("--------------------");
-        System.out.println( singleCD.mArtistName );
-        System.out.println( singleCD.mAlbumName );
-        System.out.println( singleCD.mReleaseYear );
-        System.out.println( singleCD.mPrice );
+      Integer cdChoiceByYear = Integer.parseInt(myConsole.readLine());
 
-        searchResults = true;
+      for (CD singleCD : allCDs) {
+
+        if ( cdChoiceByYear == singleCD.mReleaseYear ) {
+          System.out.println("--------------------");
+          System.out.println( singleCD.mArtistName );
+          System.out.println( singleCD.mAlbumName );
+          System.out.println( singleCD.mReleaseYear );
+          System.out.println( singleCD.mPrice );
+
+          searchResults = true;
+        }
+
+      }
+      if (!searchResults){
+        System.out.println ("No results from search");
       }
 
+    } else if (searchChoice.equals("price")) {
+      System.out.println("Search for CD according to price range.");
+      System.out.println("What is your low end (0 or greater):");
+
+      Integer lowChoiceByPrice = Integer.parseInt(myConsole.readLine());
+
+      System.out.println("What is your high end (greater or equal to your low end):");
+
+      Integer highChoiceByPrice = Integer.parseInt(myConsole.readLine());
+
+      if (lowChoiceByPrice < 0 || highChoiceByPrice < 0 || lowChoiceByPrice > highChoiceByPrice) {
+        System.out.println("Has to be a reasonable price range. Exiting program now.");
+      } else {
+
+        for (CD singleCD : allCDs) {
+          if (lowChoiceByPrice <= singleCD.mPrice && highChoiceByPrice >= singleCD.mPrice) {
+            System.out.println("--------------------");
+            System.out.println( singleCD.mArtistName );
+            System.out.println( singleCD.mAlbumName );
+            System.out.println( singleCD.mReleaseYear );
+            System.out.println( singleCD.mPrice );
+
+            searchResults = true;
+          }
+        }
+        if (!searchResults){
+          System.out.println ("No results from search");
+        }
+
+      }
+
+
+    } else {
+      System.out.println("You didn't follow my explicit directions. Booting you out!");
     }
 
-    if (!searchResults){
-      System.out.println ("No results from search");
-    }
+
+
+
 
     // for ( CD singleCD : allCDs ) {
     //   System.out.println("-------------------");
